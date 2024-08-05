@@ -5,7 +5,10 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     public float health = 100f;
+    public int level = 1;
     public int xp = 0;
+    public int maxXP = 200;
+    private int excessXP = 0;
 
 
     void Start()
@@ -15,6 +18,21 @@ public class PlayerStats : MonoBehaviour
 
     void Update()
     {
-        
+        if(xp >= maxXP)
+        {
+            LevelUp();
+        }
+    }
+
+    
+    void LevelUp()
+    {
+        level++;
+        int excess = xp - maxXP;   
+        excessXP += excess;
+        xp = excessXP;
+        excessXP = 0;
+        maxXP = Mathf.RoundToInt(maxXP * 1.5f);
+        Debug.Log(level);
     }
 }
