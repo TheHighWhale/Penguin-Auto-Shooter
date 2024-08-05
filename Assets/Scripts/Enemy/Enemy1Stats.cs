@@ -9,9 +9,6 @@ public class Enemy1Stats : MonoBehaviour
     public float damage = 2f;
     public GameObject smallXP;
 
-    private Projectile1 projectile;
-
-
     void Start()
     {
         
@@ -27,7 +24,7 @@ public class Enemy1Stats : MonoBehaviour
         if(health <= 0)
         {
             Destroy(gameObject);
-            //Instantiate(smallXP,)
+            Instantiate(smallXP, transform.position, Quaternion.identity);
         }
     }
 }

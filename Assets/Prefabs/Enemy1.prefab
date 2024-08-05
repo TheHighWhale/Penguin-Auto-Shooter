@@ -188,3 +188,4 @@ MonoBehaviour:
   health: 100
   speed: 1
   damage: 2
+  smallXP: {fileID: 2165020985297645024, guid: 04d21b3bd6329fd4f909f28b84df4a64, type: 3}
