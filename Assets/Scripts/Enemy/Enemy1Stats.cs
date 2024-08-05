@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy1Stats : MonoBehaviour
 {
-    public float health = 100f;
+    public float health = 50f;
     public float speed = 1f;
     public float damage = 2f;
     public GameObject smallXP;
@@ -24,7 +24,11 @@ public class Enemy1Stats : MonoBehaviour
         if(health <= 0)
         {
             Destroy(gameObject);
-            Instantiate(smallXP, transform.position, Quaternion.identity);
+            if (Random.value >= 0.25f)
+            {
+                Instantiate(smallXP, transform.position, Quaternion.identity);
+            }
+            
         }
     }
 }

@@ -32,7 +32,7 @@ public class PlayerStats : MonoBehaviour
         excessXP += excess;
         xp = excessXP;
         excessXP = 0;
-        maxXP = Mathf.RoundToInt(maxXP * 1.5f);
+        maxXP = Mathf.RoundToInt(maxXP * 1.2f);
         Debug.Log(level);
     }
 }
