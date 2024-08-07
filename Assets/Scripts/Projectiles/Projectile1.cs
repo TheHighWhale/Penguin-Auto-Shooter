@@ -7,7 +7,6 @@ public class Projectile1 : MonoBehaviour
     public float speed = 10f;
     public float damage = 50f;
 
-    private Enemy1Stats enemy1Stats;
     private Vector2 direction;
 
     public void Seek(Vector2 _direction)
@@ -22,14 +21,14 @@ public class Projectile1 : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
-        {
-            enemy1Stats = collision.gameObject.GetComponent<Enemy1Stats>();
-            if (enemy1Stats != null) // Check if the component exists
-            {
-                enemy1Stats.health -= damage;
-                Destroy(gameObject);
-            }
-        }
+        //if (collision.CompareTag("Enemy"))
+       // {
+        //    enemy1Stats = collision.gameObject.GetComponent<Enemy1Stats>();
+         //   if (enemy1Stats != null) // Check if the component exists
+         //   {
+         //       enemy1Stats.health -= damage;
+         ////       Destroy(gameObject);
+          //  }
+       // }
     }
 }

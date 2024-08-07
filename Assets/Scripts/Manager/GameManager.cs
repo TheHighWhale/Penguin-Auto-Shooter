@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class GameManager : MonoBehaviour
@@ -11,14 +10,14 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI xpText;
     private PlayerStats playerStats;
-    private Enemy1Stats enemy1Stats;
+   // private Enemy1Stats enemy1Stats;
     private int round = 1;
     private float difficultyTimer = 0f;
 
     private void Start()
     {
         playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
-        enemy1Stats = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy1Stats>();
+        //enemy1Stats = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy1Stats>();
     }
 
     void Update()
@@ -59,6 +58,6 @@ public class GameManager : MonoBehaviour
     void IncreaseDifficulty()
     {
         round++;
-        enemy1Stats.health += 50f;
+        //enemy1Stats.health += 50f;
     }
 }
