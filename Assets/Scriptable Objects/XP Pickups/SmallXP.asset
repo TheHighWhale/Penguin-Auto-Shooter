@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c0ac4714e1690d4984d2ef0bbb2203e, type: 3}
   m_Name: SmallXP
   m_EditorClassIdentifier: 
-  xpPrefab: {fileID: 0}
-  xpValue: 0
+  xpPrefab: {fileID: 2165020985297645024, guid: 04d21b3bd6329fd4f909f28b84df4a64,
+    type: 3}
+  xpValue: 50
