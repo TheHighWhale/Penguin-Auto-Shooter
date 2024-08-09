@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 765364808400634068}
   - component: {fileID: 4296108156518263973}
   - component: {fileID: 4321622050729464656}
-  - component: {fileID: 4862705818818099085}
   m_Layer: 0
   m_Name: SmallXPPickup
   m_TagString: SmallXP
@@ -131,15 +130,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.4375}
   m_EdgeRadius: 0
---- !u!114 &4862705818818099085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2165020985297645024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d62f81c790e48bc43829acc4c276edd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

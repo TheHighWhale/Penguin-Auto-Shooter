@@ -9,14 +9,14 @@ public class GameManager : MonoBehaviour
     private float timeLeft = 1800f; // 30 minutes in seconds
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI xpText;
-    private PlayerStats playerStats;
+    //private PlayerStats playerStats;
    // private Enemy1Stats enemy1Stats;
     private int round = 1;
     private float difficultyTimer = 0f;
 
     private void Start()
     {
-        playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
+       // playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
         //enemy1Stats = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy1Stats>();
     }
 
@@ -51,8 +51,8 @@ public class GameManager : MonoBehaviour
 
     void DisplayLevel()
     {
-        levelText.text = "Level: " + playerStats.level.ToString();
-        xpText.text = "XP: " + playerStats.xp.ToString();
+        //levelText.text = "Level: " + playerStats.level.ToString();
+        //xpText.text = "XP: " + playerStats.xp.ToString();
     }
 
     void IncreaseDifficulty()
