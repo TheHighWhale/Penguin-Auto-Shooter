@@ -9,11 +9,10 @@ public class PlayerStats : MonoBehaviour
     public int xp = 0;
     public int maxXP = 200;
     private int excessXP = 0;
-    private XPData xpData;
 
     void Start()
     {
-        xpData = GetComponent<XPData>();
+
     }
 
     void Update()
@@ -26,11 +25,7 @@ public class PlayerStats : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("XP"))
-        {
-            Destroy(xpData.xpPrefab);
-            xp += xpData.xpValue;
-        }
+        
     }
 
 
