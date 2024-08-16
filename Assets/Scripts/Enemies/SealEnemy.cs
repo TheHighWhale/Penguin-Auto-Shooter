@@ -4,20 +4,19 @@ using UnityEngine;
 
 public class SealEnemy : Enemy
 {
-    public float fireRate;
+    private GameObject player;
 
-    public override void Move()
+    protected override void Start()
     {
-        // Implement specific movement logic
+        player = GameObject.FindWithTag("Player");
+        speed = 2;
     }
 
-    public override void Shoot()
+    protected override void Update()
     {
-        // Instantiate a projectile
-    }
+        Vector3 playerDirection = player.transform.position - transform.position;
+        playerDirection.Normalize();
 
-    public override void Die()
-    {
-        // Drop an XP pickup
+        transform.Translate(playerDirection * speed * Time.deltaTime);
     }
 }

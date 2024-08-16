@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public float health = 100f;
+    public float xp = 0f;
+    public float maxXp = 100f;
+    public float excessXP = 0f;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         

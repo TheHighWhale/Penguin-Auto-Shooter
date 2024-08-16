@@ -6,9 +6,30 @@ public abstract class Enemy : MonoBehaviour
 {
     public float health;
     public float speed;
-    public int xpValue;
+    public GameObject xpPickup;
 
-    public abstract void Move();
-    public abstract void Shoot();
-    public abstract void Die();
+    protected virtual void Start()
+    {
+
+    }
+
+    protected virtual void Update()
+    {
+
+    }
+
+    public virtual void TakeDamage(float amount)
+    {
+        health -= amount;
+        if(health <= 0)
+        {
+            Die();
+        }
+    }
+
+    protected virtual void Die()
+    {
+        // Drop XP logic here
+        Destroy(gameObject);
+    }
 }
