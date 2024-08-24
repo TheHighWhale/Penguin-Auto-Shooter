@@ -8,7 +8,7 @@ public class PlayerShooting : MonoBehaviour
     public Transform firePoint;
     public float fireRate = 0.2f;
     public int maxProjectiles = 6;
-    public int startingProjectiles = 1;
+    private int startingProjectiles = 1;
     private int currentProjectiles;
 
     private float nextFireTime = 0f;
