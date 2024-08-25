@@ -1,54 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 public class PlayerShooting : MonoBehaviour
 {
-    public GameObject projectilePrefab;
-    public float fireRate = 2f;
+    public PlayerLevelSystem playerLevelSystem;
 
-    private float nextFireTime = 0f;
+    private float lastShotTime;
 
     void Update()
     {
-        if (Time.time > nextFireTime)
+        foreach (var projectile in playerLevelSystem.activeProjectiles)
         {
-            nextFireTime = Time.time + fireRate;
-            Shoot();
+            if (Time.time > lastShotTime + projectile.fireRate)
+            {
+                Shoot(projectile);
+                lastShotTime = Time.time;
+            }
         }
     }
 
-    void Shoot()
+    void Shoot(Projectile projectile)
     {
-        GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        Projectile1 projectileScript = projectile.GetComponent<Projectile1>();
-
-
-        if (projectileScript != null)
-        {
-            // Find the nearest enemy
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            GameObject nearestEnemy = null;
-            float nearestDistance = Mathf.Infinity;
-
-
-            foreach (GameObject enemy in enemies)
-            {
-                float distance = Vector2.Distance(transform.position, enemy.transform.position);
-                if (distance < nearestDistance)
-
-                {
-                    nearestDistance = distance;
-                    nearestEnemy = enemy;
-                }
-            }
-
-            if (nearestEnemy
- != null)
-            {
-                Vector2 direction = nearestEnemy.transform.position - transform.position;
-                projectileScript.Seek(direction);
-            }
-        }
+        Instantiate(projectile.projectilePrefab, transform.position, Quaternion.identity);
     }
 }
-

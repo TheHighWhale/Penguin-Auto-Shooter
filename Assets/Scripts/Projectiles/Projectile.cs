@@ -1,18 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+[System.Serializable]
+public class Projectile
 {
-    // Start is called before the first frame update
-    void Start()
+    public string projectileName;
+    public GameObject projectilePrefab;
+    public float damage;
+    public float speed;
+    public float fireRate; // Spawn frequency
+    public int level; // Current level of this projectile
+
+    // Upgrade methods for individual stats
+    public void UpgradeDamage(int amount)
     {
-        
+        damage += amount;
+        level++;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpgradeSpeed(float amount)
     {
-        
+        speed += amount;
+        level++;
+    }
+
+    public void UpgradeFireRate(float factor)
+    {
+        fireRate *= factor; // E.g., 0.9f to decrease time between shots (increase fire rate)
+        level++;
     }
 }

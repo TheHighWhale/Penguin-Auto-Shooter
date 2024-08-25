@@ -4,22 +4,51 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public EnemyData enemyData;
+    public float health = 20f;
+    public float speed = 2f;
+    public Transform player;
+    public Vector2 movementPattern;
 
-    private void Update()
+    private Vector2 direction;
+
+    void Start()
     {
-        if(enemyData.health <=0)
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
+    void Update()
+    {
+        Move();
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
         {
-            Death();
+            Die();
         }
     }
 
-    private void Death()
+    private void Move()
     {
-        Destroy(gameObject);
-        if (Random.value >= 0.25f)
+        if (movementPattern == Vector2.zero) return;
+
+        if (movementPattern == Vector2.one)
         {
-            Instantiate(enemyData.xpData.xpPrefab, transform.position, Quaternion.identity);
+            direction = (player.position - transform.position).normalized; // Move towards the player
         }
+        else
+        {
+            direction = movementPattern.normalized;
+        }
+
+        transform.Translate(direction * speed * Time.deltaTime);
+    }
+
+    private void Die()
+    {
+        // Implement drop of XP or other items here
+        Destroy(gameObject);
     }
 }

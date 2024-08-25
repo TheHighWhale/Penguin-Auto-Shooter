@@ -1,63 +1,51 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public TextMeshProUGUI timerText; // Reference to the UI text component
-    private float timeLeft = 1800f; // 30 minutes in seconds
-    public TextMeshProUGUI levelText;
-    public TextMeshProUGUI xpText;
-    private PlayerStats playerStats;
-   // private Enemy1Stats enemy1Stats;
-    private int round = 1;
-    private float difficultyTimer = 0f;
+    public EnemySpawner enemySpawner;
+    public float elapsedTime = 0f;
+    public float spawnWaveInterval = 300f; // 5 minutes interval for new enemy types
+    public float gameDuration = 1800f; // 30 minutes for the entire game
 
-    private void Start()
+    private bool isGameOver = false;
+
+    void Start()
     {
-        playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
-        //enemy1Stats = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy1Stats>();
+        // Start with the first wave of enemies
+        enemySpawner.StartWave(0);
     }
 
     void Update()
     {
-        timeLeft -= Time.deltaTime;
-        DisplayTime(timeLeft);
-        DisplayLevel();
-        difficultyTimer += Time.deltaTime;
+        if (isGameOver) return;
 
-        if (timeLeft <= 0)
+        elapsedTime += Time.deltaTime;
+
+        // Check for new enemy waves based on elapsed time
+        if (elapsedTime >= spawnWaveInterval)
         {
-            // Game Over logic here
-            Debug.Log("Game Over!");
-            // Add your game over actions, like loading a game over screen or quitting the game
+            int waveIndex = Mathf.FloorToInt(elapsedTime / spawnWaveInterval);
+            enemySpawner.StartWave(waveIndex);
         }
 
-        if (difficultyTimer <= 20f)
+        // Check if the player has survived for the entire duration
+        if (elapsedTime >= gameDuration)
         {
-            difficultyTimer = 0f;
-            IncreaseDifficulty();
+            EndGame(true);
         }
     }
 
-    void DisplayTime(float timeToDisplay)
+    public void EndGame(bool won)
     {
-        float minutes = Mathf.FloorToInt(timeToDisplay / 60);
-        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
-        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-
+        isGameOver = true;
+        // Handle end of game logic here
+        // E.g., show win/lose screen, stop player movement, etc.
+        Debug.Log(won ? "Player Survived!" : "Player Died!");
     }
 
-    void DisplayLevel()
+    public void OnPlayerDeath()
     {
-        levelText.text = "Level: " + playerStats.level.ToString();
-        xpText.text = "XP: " + playerStats.xp.ToString();
-    }
-
-    void IncreaseDifficulty()
-    {
-        round++;
-        //enemy1Stats.health += 50f;
+        EndGame(false);
     }
 }

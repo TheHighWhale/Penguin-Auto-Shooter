@@ -1,34 +1,52 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject enemyPrefab;
-    public float spawnRadius = 10f;
-    public float spawnRate = .5f;
+    [System.Serializable]
+    public class SpawnWave
+    {
+        public GameObject[] enemyPrefabs;
+        public float spawnRate = 2f; // Seconds between spawns
+        public float duration = 300f; // How long this wave lasts (optional)
+    }
 
-    private float nextSpawnTime = 0f;
+    public SpawnWave[] spawnWaves;
+    public float spawnDistance = 10f;
     private Transform player;
+    private float currentWaveEndTime = 0f;
+    private int currentWaveIndex = -1;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
+    public void StartWave(int waveIndex)
+    {
+        if (waveIndex >= spawnWaves.Length) return;
+
+        CancelInvoke(); // Stop previous wave
+
+        currentWaveIndex = waveIndex;
+        currentWaveEndTime = Time.time + spawnWaves[waveIndex].duration;
+
+        InvokeRepeating("SpawnEnemy", spawnWaves[waveIndex].spawnRate, spawnWaves[waveIndex].spawnRate);
+    }
+
     void Update()
     {
-        if (Time.time > nextSpawnTime)
+        if (currentWaveIndex >= 0 && Time.time >= currentWaveEndTime)
         {
-            nextSpawnTime = Time.time + spawnRate;
-            SpawnEnemy();
+            CancelInvoke();
         }
     }
 
     void SpawnEnemy()
     {
-        float angle = Random.Range(0, Mathf.PI * 2);
-        Vector2 spawnPosition = player.position + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle)) * spawnRadius;
+        if (currentWaveIndex < 0 || currentWaveIndex >= spawnWaves.Length) return;
+
+        Vector2 spawnPosition = player.position + (Vector3)Random.insideUnitCircle.normalized * spawnDistance;
+        GameObject enemyPrefab = spawnWaves[currentWaveIndex].enemyPrefabs[Random.Range(0, spawnWaves[currentWaveIndex].enemyPrefabs.Length)];
         Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
     }
 }
